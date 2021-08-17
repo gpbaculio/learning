@@ -1,41 +1,52 @@
 import { useState } from "react";
-import styled from "styled-components";
+import classNames from "classnames";
+import styled, { ThemeProvider } from "styled-components";
 
 import me from "../../images/me.jpeg";
+import "./CardFlip.css";
+
+const theme = {
+  primary: "#FFCE00",
+  secondary: "#FE4880",
+  dark: "#212121",
+  light: "#F3F3F3",
+};
 
 const CardFlip = () => {
-  const [rotateY, setRotateY] = useState(180);
+  const [rotateY, setRotateY] = useState(0);
 
   const onCardPress = () => {
     setRotateY((rY) => rY + 180);
   };
 
   return (
-    <Container>
-      <Card>
-        <CardInner onClick={onCardPress} rotateY={rotateY}>
-          <CardFront className='card-face'>
-            <StyledH2>Developer Card</StyledH2>
-          </CardFront>
-          <CardBack className='card-face'>
-            <CardBackContent>
-              <CardBackHeader>
-                <ProfileImg src={me} />
-                <h2>Glendon Philipp B. Baculio</h2>
-              </CardBackHeader>
-              <CardBackBody>
-                <h3>JS Wizard</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-                  corporis magnam tenetur, ea adipisci voluptas voluptates non
-                  laboriosam laborum quae aspernatur.
-                </p>
-              </CardBackBody>
-            </CardBackContent>
-          </CardBack>
-        </CardInner>
-      </Card>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Card>
+          <CardInner onClick={onCardPress} rotateY={rotateY}>
+            <CardFront className={classNames({ "card-face": true })}>
+              <StyledH2>Developer Card</StyledH2>
+            </CardFront>
+            <CardBack className={classNames({ "card-face": true })}>
+              <CardBackContent>
+                <CardBackHeader>
+                  <ProfileImg src={me} />
+                  <h2>Glendon Philipp B. Baculio</h2>
+                </CardBackHeader>
+                <CardBackBody>
+                  <h3>JS Wizard</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Eaque corporis magnam tenetur, ea adipisci voluptas
+                    voluptates non laboriosam laborum quae aspernatur.
+                  </p>
+                </CardBackBody>
+              </CardBackContent>
+            </CardBack>
+          </CardInner>
+        </Card>
+      </Container>
+    </ThemeProvider>
   );
 };
 
